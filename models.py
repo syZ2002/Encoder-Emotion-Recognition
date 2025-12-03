@@ -85,9 +85,11 @@ class Classifier(nn.Module):
         self.multihead_attention = MultiHeadAttention(d_model,n_heads,mask)
         self.embedding = Embeddings(vocab_size,d_model,max_len)
         self.classifier = nn.Linear(d_model,2)
+        self.gelu = nn.GELU()
     def forward(self,input_ids):
         input_ids = self.embedding(input_ids)
         input_ids = self.multihead_attention(input_ids)
-        input_ids = self.classifier(input_ids.mean(dim=1))
+        input_ids = self.gelu(input_ids.mean(dim=1))
+        input_ids = self.classifier(input_ids)
         #用一整句的平均分数来判断
         return input_ids
