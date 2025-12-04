@@ -1,2 +1,1 @@
-#编码器文本识别
-用Transformer中的编码器进行文本感情分析
+# 使用Transformer中的Encoder做文本情感分析
